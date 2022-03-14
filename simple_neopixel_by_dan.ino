@@ -13,18 +13,28 @@ void setup() {
   pixels.setBrightness(BRIGHTNESS);
   pixels.begin();
 
+
 }
 
 void loop() {
   pixels.clear();
 
   //test style - comment or uncomment to try
-  kitRun();
+  //  kitRun();
   //  staticWhite();
+  offLED();
+}
+
+// off
+void offLED() {
+  for (int i = 0; i < NUMPIXELS; i++) {
+    pixels.setPixelColor(i, pixels.Color(0, 0, 0));
+  }
+  pixels.show();
 }
 
 
-//static
+//staticWhite style
 void staticWhite() {
   for (int i = 0; i < NUMPIXELS; i++) {
     pixels.setPixelColor(i, pixels.Color(255, 255, 255));
