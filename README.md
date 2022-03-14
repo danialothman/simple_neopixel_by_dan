@@ -1,2 +1,2 @@
 # simple_neopixel_by_dan
- fun with SK6912 addresable LED
+ fun with SK6812 addresable LED
