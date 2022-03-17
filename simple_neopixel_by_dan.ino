@@ -1,8 +1,8 @@
 #include <Adafruit_NeoPixel.h>
 
-#define PIN       6
-#define NUMPIXELS 30 // number of LED on strip
-#define BRIGHTNESS 155 // 0 - 255 dim to bright
+#define PIN       6     // LED strip data pin is on this PIN
+#define NUMPIXELS 30    // number of LED on strip
+#define BRIGHTNESS 155  // 0 - 255 dim to bright
 
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800); // essential for lib
 
@@ -12,13 +12,10 @@ void setup() {
   Serial.begin(9600);
   pixels.setBrightness(BRIGHTNESS);
   pixels.begin();
-
-
 }
 
 void loop() {
   pixels.clear();
-
   //test style - comment or uncomment to try
   //  kitRun();
   //  staticWhite();
@@ -27,15 +24,13 @@ void loop() {
 
 // off
 void offLED() {
-  for (int i = 0; i < NUMPIXELS; i++) {
-    pixels.setPixelColor(i, pixels.Color(0, 0, 0));
-  }
   pixels.show();
 }
 
 
 //staticWhite style
 void staticWhite() {
+
   for (int i = 0; i < NUMPIXELS; i++) {
     pixels.setPixelColor(i, pixels.Color(255, 255, 255));
   }
