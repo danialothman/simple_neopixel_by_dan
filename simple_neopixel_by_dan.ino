@@ -8,7 +8,6 @@ Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800); // essential for
 
 #define DELAYVAL 250
 
-
 // debounce button setup
 const int buttonPin = 2;
 int ledState = LOW;
@@ -16,54 +15,34 @@ boolean buttonState = HIGH;
 int pressed = 0;
 
 void setup() {
-//  Serial.begin(9600);
+  Serial.begin(9600);
 
   //configure pin 2 as an input and enable the internal pull-up resistor
   pinMode(buttonPin, INPUT_PULLUP);
-  
+
   pixels.setBrightness(BRIGHTNESS);
   pixels.begin();
   pixels.clear();
-
-
-  
 }
 
 void loop() {
-
-//  Serial.println(buttonState);
-//  Serial.println(pressed);
+  //  Serial.println(buttonState);
+  //  Serial.println(pressed);
 
   if (debounceButton(buttonState) == HIGH && buttonState == LOW)
   {
     pressed++;
     buttonState = HIGH;
+
+    if (pressed > 5) {
+      pressed = 0;
+    }
+    startShow(pressed);
   }
   else if (debounceButton(buttonState) == LOW && buttonState == HIGH)
   {
     buttonState = LOW;
   }
-
-  if (pressed == 0)
-  {
-    allOff();
-  }
-  if (pressed == 1) {
-    allRed();
-  }
-  if (pressed == 2) {
-    allGreen();
-  }
-  if (pressed == 3) {
-    allBlue();
-  }
-  if (pressed == 4) {
-    allWhite();
-  }
-  if (pressed > 4) {
-    pressed = 0;
-  }
-  
 }
 
 boolean debounceButton(boolean state)
@@ -77,7 +56,24 @@ boolean debounceButton(boolean state)
   return stateNow;
 }
 
-// off
+
+void startShow(int i) {
+  switch (i) {
+    case 0: allOff();   // Black/off
+      break;
+    case 1: allRed();   // Red
+      break;
+    case 2: allGreen(); // Green
+      break;
+    case 3: allBlue();  // Blue
+      break;
+    case 4: allWhite(); // White
+      break;
+    case 5: kitRun();   // kit
+      break;
+  }
+}
+
 void allOff() {
   pixels.clear();
   pixels.show();
@@ -124,6 +120,7 @@ void allWhite() {
 
 //knightRider style
 void kitRun() {
+  pixels.clear();
   for (int i = 0; i < NUMPIXELS; i++) {
     Serial.println(i);
     pixels.setPixelColor(i, pixels.Color(0, 150, 150));
